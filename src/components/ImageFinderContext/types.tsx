@@ -20,6 +20,7 @@ export type ContextValue = {
     image: Image;
     errorMsg: string;
     loading: boolean;
+    cardOpen: boolean;
     setName: (value: string) => void;
     setSurname: (value: string) => void;
     handleTopicChange: (e: SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => void;
@@ -27,6 +28,7 @@ export type ContextValue = {
     setOtherTopic: (value: string) => void;
     setPage: (value: number) => void;
     setTotalPages: (value: number) => void;
+    setCardOpen: (value: boolean) => void;
 };
 
 export type ProviderProps = {

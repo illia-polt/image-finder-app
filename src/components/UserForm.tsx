@@ -2,12 +2,6 @@ import React from 'react';
 import { Form, Segment, Input, Dropdown } from 'semantic-ui-react';
 import { useImageFinderContext } from './ImageFinderContext/ImageFinderContext';
 
-// interface TopicOption {
-//   key: string;
-//   text: string;
-//   value: string;
-// }
-
 const topics = [
   { key: 'travel', text: 'Travel', value: 'Travel' },
   { key: 'cars', text: 'Cars', value: 'Cars' },

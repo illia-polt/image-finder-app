@@ -3,19 +3,20 @@ import { Button, Image, Loader, Segment } from "semantic-ui-react";
 
 
 export const ImagePresenter = () => {
-    const { page, totalPages, image, loading, setPage } = useImageFinderContext();
+    const { page, totalPages, image, loading, setPage, errorMsg, setCardOpen } = useImageFinderContext();
 
     return (
         <Segment size='mini'>
+            {errorMsg && <p className="error-message">{errorMsg}</p>}
             <Loader active={loading}>Loading</Loader>
             <Image
                 src={image?.urls?.regular || 'https://react.semantic-ui.com/images/wireframe/image.png'}
                 alt={image?.altDescription}
-                fluid
-                // style={{ maxWidth: '40%', maxHeight: '40%' }}
+                size="huge"
+                centered
             />
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', margin: '10px'}}>
-                <Button color="teal" onClick={() => {}}>Accept</Button>
+            <div className='buttons-container'>
+                <Button color="teal" onClick={() => setCardOpen(true)}>Accept</Button>
                 <Button color="red" disabled={page === totalPages} onClick={() => setPage(page + 1)}>Reject</Button>
             </div>
         </Segment>

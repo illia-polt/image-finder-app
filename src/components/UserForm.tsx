@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Segment, Input, Dropdown, Button } from 'semantic-ui-react';
-import { useImageFinderContext } from './ImageFinderContext/ImageFinderContext';
+import { useAppContext } from './AppContext/AppContext';
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const topics = [
   { key: 'travel', text: 'Travel', value: 'Travel' },
@@ -22,20 +22,19 @@ const UserForm = () => {
     setSurname,
     handleTopicChange,
     setOtherTopic,
-    handleSearch,
+    resetSearch,
     searchTopic,
-  } = useImageFinderContext();
+  } = useAppContext();
   const navigate = useNavigate();
-  console.log(useImageFinderContext());
 
-  // if (searchTopic) return <Navigate to="picker" replace/>
   const onSearch = () => {
+    resetSearch();
     navigate('/picker');
   }
   return (
-    <Segment raised size='huge' >
+    <Segment raised size='huge' className='user-form' >
       <h1>Image Finder</h1>
-      <Form onSubmit={handleSearch}>
+      <Form>
         <Form.Field>
           <label>Name</label>
           <Input
@@ -77,7 +76,7 @@ const UserForm = () => {
           />
           </Form.Field>
         )}
-        <Button type="submit" color='teal' onClick={onSearch} disabled={!searchTopic}>Search</Button>
+        <Button color='teal' onClick={onSearch} disabled={!searchTopic}>Search</Button>
       </Form>
     </Segment>
   );

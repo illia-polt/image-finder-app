@@ -1,4 +1,4 @@
-import { SyntheticEvent, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { SyntheticEvent, createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { ContextValue, ProviderProps } from './types';
 import { DropdownProps } from 'semantic-ui-react';
 import { getImages } from '../../api/getImages';
@@ -7,11 +7,10 @@ const initialValue: ContextValue = {
 	setName: _ => {},
 	setSurname: _ => {},
 	handleTopicChange: _ => {},
-	handleSearch: _ => {},
 	setOtherTopic: _ => {},
 	setPage: _ => {},
 	setTotalPages: _ => {},
-	setCardOpen: _ => {},
+	resetSearch: () => {},
 	name: '',
 	surname: '',
 	topic: '',
@@ -27,14 +26,13 @@ const initialValue: ContextValue = {
 		}
 	},
     errorMsg: '',
-    loading: false,
-    cardOpen: false,
 	searchTopic: '',
+	loading: false,
 };
 
-export const ImageFinderContext = createContext<ContextValue>(initialValue);
+export const AppContext = createContext<ContextValue>(initialValue);
 
-export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
+export const AppProvider = ({ ...props }: ProviderProps) => {
 	const [name, setName] = useState('');
 	const [surname, setSurname] = useState('');
 	const [topic, setTopic] = useState('');
@@ -45,20 +43,16 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 	const [totalPages, setTotalPages] = useState(0);
     const [image, setImage] = useState<any>(null);
 	const [errorMsg, setErrorMsg] = useState('');
-  	const [loading, setLoading] = useState(false);
-
-  	const [cardOpen, setCardOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const fetchImages = useCallback(() => {
 		try {
-			console.log(searchTopic);
-			
 		  if (searchTopic) {
-			setErrorMsg('');
 			setLoading(true);
+			setImage({});
+			setErrorMsg('');
 			getImages({query: searchTopic, page})
 				.then(({data}: any) => {
-					console.log({data});
 					setImage(data.results[0]);
 					setTotalPages(data.total_pages);
 				});
@@ -67,9 +61,8 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 		} catch (error) {
 		  setErrorMsg('Somethind went wrong! Please try again later.');
 		  console.log(error);
-		  setLoading(false);
 		}
-	  }, [page]);
+	  }, [page, searchTopic]);
 
 	const resetSearch = useCallback(() => {
 		setPage(1);
@@ -79,17 +72,7 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 	const handleTopicChange = useCallback((_event: SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => {
 		setTopic(data.value as string);
 		setOtherTopic('');
-		resetSearch();
-	}, [resetSearch]);
-
-	const handleSearch = useCallback((event: SyntheticEvent<HTMLElement, Event>) => {
-		event.preventDefault();
-		resetSearch();
-	}, [resetSearch]);
-
-	useEffect(() => {
-		fetchImages();
-	}, [fetchImages]);
+	}, []);
 
 	const ctxValue = useMemo(
 		() => ({
@@ -101,27 +84,25 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 			totalPages,
 			image,
 			errorMsg,
-			loading,
-			cardOpen,
 			searchTopic,
+			loading,
 			setName,
 			setSurname,
 			handleTopicChange,
-			handleSearch,
 			setOtherTopic,
 			setPage,
 			setTotalPages,
-			setCardOpen
+			resetSearch
 		}),
-		[name, surname, topic, otherTopic, page, totalPages, image, errorMsg, loading, cardOpen, searchTopic, handleTopicChange, handleSearch],
+		[name, surname, topic, otherTopic, page, totalPages, image, errorMsg, searchTopic, loading, handleTopicChange, resetSearch],
 	);
 
-return <ImageFinderContext.Provider value={ctxValue} {...props} />;
+return <AppContext.Provider value={ctxValue} {...props} />;
 };
 
-export const useImageFinderContext = () => {
-	const ctx = useContext(ImageFinderContext);
-	if (!ctx) throw new Error('useImageFinderContext must be used within a ContextProvider');
+export const useAppContext = () => {
+	const ctx = useContext(AppContext);
+	if (!ctx) throw new Error('useAppContext must be used within a ContextProvider');
 
 	return ctx;
 };

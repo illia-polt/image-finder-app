@@ -1,6 +1,8 @@
 #root {
+  height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 12px;
 }
 
@@ -8,7 +10,10 @@
   text-align: center;
 }
 
-.modal-content {
+.user-form > button {
+  margin: 0 auto;
+}
+.user-card {
   margin: 14px;
   padding: 14px;
 }

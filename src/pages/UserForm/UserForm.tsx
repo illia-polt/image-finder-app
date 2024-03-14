@@ -1,8 +1,9 @@
-import React from 'react';
-import { Form, Segment, Input, Dropdown, Button } from 'semantic-ui-react';
-import { useAppContext } from './AppContext/AppContext';
-
+import React, { memo } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Form, Segment, Input, Dropdown, Button } from 'semantic-ui-react';
+
+import { useAppContext } from '../../components/AppContext/AppContext';
+
 
 const topics = [
   { key: 'travel', text: 'Travel', value: 'Travel' },
@@ -31,20 +32,24 @@ const UserForm = () => {
     resetSearch();
     navigate('/picker');
   }
+
+  const disableButton =  name.length < 3 || surname.length < 3 || !searchTopic;
+
   return (
-    <Segment raised size='huge' className='user-form' >
+    <Segment raised size='huge' >
       <h1>Image Finder</h1>
       <Form>
-        <Form.Field>
+        <Form.Field required>
           <label>Name</label>
           <Input
             name="name"
             placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            autoFocus
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label>Surname</label>
           <Input
             name="surname"
@@ -53,7 +58,7 @@ const UserForm = () => {
             onChange={(e) => setSurname(e.target.value)}
           />
         </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label>Preferred Topic</label>
           <Dropdown
             placeholder="Select Topic"
@@ -76,10 +81,12 @@ const UserForm = () => {
           />
           </Form.Field>
         )}
-        <Button color='teal' onClick={onSearch} disabled={!searchTopic}>Search</Button>
+        <div className='buttons-container'>
+          <Button color='teal' onClick={onSearch} disabled={disableButton}>Search</Button>
+        </div>
       </Form>
     </Segment>
   );
 };
 
-export default UserForm;
+export default memo(UserForm);

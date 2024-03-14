@@ -1,14 +1,6 @@
 import { ReactNode, SyntheticEvent } from "react";
 import { DropdownProps } from "semantic-ui-react";
-
-export type Image = {
-    altDescription: string;
-    urls : {
-        full: string;
-        regular: string;
-        small: string;
-    }
-}
+import { type Image } from "../../api/getImages";
 
 export type ContextValue = {
     name: string;

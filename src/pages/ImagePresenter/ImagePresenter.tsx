@@ -1,8 +1,10 @@
-import { useAppContext } from "./AppContext/AppContext"
-import { Button, Image, Segment, Loader } from "semantic-ui-react";
+import { memo } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Button, Image, Segment, Loader } from "semantic-ui-react";
 
-export const ImagePresenter = () => {
+import { useAppContext } from "../../components/AppContext/AppContext"
+
+const ImagePresenter = () => {
     const {
         page,
         totalPages,
@@ -11,14 +13,16 @@ export const ImagePresenter = () => {
         loading
     } = useAppContext();
     const navigate = useNavigate();
+    console.log({loading});
 
     return (
         <Segment size='mini'>
             {errorMsg && <p className="error-message">{errorMsg}</p>}
             <Loader active={loading}>Loading</Loader>
             <Image
-                src={image?.urls?.full || 'https://react.semantic-ui.com/images/wireframe/image.png'}
-                alt={image?.altDescription}
+                src={image?.urls?.full}
+                alt={image?.alt_description}
+                className="placeholder"
                 size="huge"
                 centered
             />
@@ -29,3 +33,5 @@ export const ImagePresenter = () => {
         </Segment>
     );
 }
+
+export default memo(ImagePresenter);

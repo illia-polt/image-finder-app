@@ -18,16 +18,20 @@ const initialValue: ContextValue = {
 	page: 1,
 	totalPages: 0,
 	image: {
-		altDescription: '',
+		id: '',
+		alt_description: '',
 		urls : {
 			full: '',
+			raw: '',
 			regular: '',
 			small: '',
-		}
+		},
+		created_at: '',
+		slug: ''
 	},
     errorMsg: '',
 	searchTopic: '',
-	loading: false,
+	loading: true,
 };
 
 export const AppContext = createContext<ContextValue>(initialValue);
@@ -41,7 +45,7 @@ export const AppProvider = ({ ...props }: ProviderProps) => {
 
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(0);
-    const [image, setImage] = useState<any>(null);
+    const [image, setImage] = useState(initialValue.image);
 	const [errorMsg, setErrorMsg] = useState('');
 	const [loading, setLoading] = useState(false);
 
@@ -49,18 +53,19 @@ export const AppProvider = ({ ...props }: ProviderProps) => {
 		try {
 		  if (searchTopic) {
 			setLoading(true);
-			setImage({});
+			setImage(initialValue.image);
 			setErrorMsg('');
 			getImages({query: searchTopic, page})
 				.then(({data}: any) => {
 					setImage(data.results[0]);
 					setTotalPages(data.total_pages);
 				});
-			setLoading(false);
 		  }
 		} catch (error) {
-		  setErrorMsg('Somethind went wrong! Please try again later.');
-		  console.log(error);
+		  	setErrorMsg('Somethind went wrong! Please try again later.');
+		  	console.log(error);
+		} finally {
+			setLoading(false);
 		}
 	  }, [page, searchTopic]);
 

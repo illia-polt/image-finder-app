@@ -10,17 +10,19 @@
   text-align: center;
 }
 
-.user-form > button {
-  margin: 0 auto;
-}
 .user-card {
   margin: 14px;
   padding: 14px;
 }
 
+.placeholder {
+  min-width: 800px;
+  min-height: 600px;
+}
+
 .error-message {
   background: red;
-  color: white;
+  color: rgb(167, 122, 122);
   font-size: 14px;
 }
 

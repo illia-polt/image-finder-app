@@ -1,7 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Form, Segment, Input, Button, Dropdown } from 'semantic-ui-react';
+import React from 'react';
+import { Form, Segment, Input, Dropdown } from 'semantic-ui-react';
 import { useImageFinderContext } from './ImageFinderContext/ImageFinderContext';
-import debounce from 'lodash/debounce';
 
 // interface TopicOption {
 //   key: string;
@@ -31,33 +30,6 @@ const UserForm = () => {
   } = useImageFinderContext();
 
   console.log(useImageFinderContext());
-
-
-
-  // const handleInputChange = (event, option { name, value }) => {
-  //   switch (name) {
-  //     case 'name':
-  //       setName(value);
-  //       break;
-  //     case 'surname':
-  //       setSurname(value);
-  //       break;
-  //     case 'topic':
-  //       setTopic({ name, value });
-  //       setOtherTopic(''); // Clear otherTopic when topic changes
-  //       break;
-  //     case 'otherTopic':
-  //       setOtherTopic({ name, value });
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // const handleTopicChange = (event, data) => {
-  //   console.log(data);
-  //   setTopic(data.value);
-  // };
 
   return (
     <Segment raised size='large'>

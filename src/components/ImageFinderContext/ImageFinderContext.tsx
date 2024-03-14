@@ -3,7 +3,7 @@ import { ContextValue, ProviderProps } from './types';
 import { DropdownProps } from 'semantic-ui-react';
 import { getImages } from '../../api/getImages';
 
-const initialValue: ContextValue = { // ?
+const initialValue: ContextValue = {
 	setName: _ => {},
 	setSurname: _ => {},
 	handleTopicChange: _ => {},
@@ -67,7 +67,6 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 	  }, [page, searchTopic]);
 
 	const resetSearch = useCallback(() => {
-		console.log('resetSearch called');
 		setPage(1);
 		fetchImages();
 	}, [fetchImages]);
@@ -86,18 +85,6 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 	useEffect(() => {
 		fetchImages();
 	}, [fetchImages]);
-
-
-	// const getQuery = () => {
-	// 	let query = topic;
-	// 	if (topic === 'Other') query = otherTopic
-	// 	return query;
-	// }
-
-	// const fetchImages = useCallback(() => {
-	// 	if (topic === 'Other')
-	// 	getImages(, page});
-	// }, [topic, otherTopic, page])
 
 	const ctxValue = useMemo(
 		() => ({

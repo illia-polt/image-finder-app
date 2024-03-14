@@ -29,6 +29,7 @@ const initialValue: ContextValue = {
     errorMsg: '',
     loading: false,
     cardOpen: false,
+	searchTopic: '',
 };
 
 export const ImageFinderContext = createContext<ContextValue>(initialValue);
@@ -68,7 +69,7 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 		  console.log(error);
 		  setLoading(false);
 		}
-	  }, [page, searchTopic]);
+	  }, [page]);
 
 	const resetSearch = useCallback(() => {
 		setPage(1);
@@ -102,6 +103,7 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 			errorMsg,
 			loading,
 			cardOpen,
+			searchTopic,
 			setName,
 			setSurname,
 			handleTopicChange,
@@ -111,7 +113,7 @@ export const ImageFinderProvider = ({ ...props }: ProviderProps) => {
 			setTotalPages,
 			setCardOpen
 		}),
-		[name, surname, topic, otherTopic, page, totalPages, image, errorMsg, loading, cardOpen, handleTopicChange, handleSearch],
+		[name, surname, topic, otherTopic, page, totalPages, image, errorMsg, loading, cardOpen, searchTopic, handleTopicChange, handleSearch],
 	);
 
 return <ImageFinderContext.Provider value={ctxValue} {...props} />;

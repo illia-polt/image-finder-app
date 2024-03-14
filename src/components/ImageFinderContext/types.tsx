@@ -21,6 +21,7 @@ export type ContextValue = {
     errorMsg: string;
     loading: boolean;
     cardOpen: boolean;
+    searchTopic: string;
     setName: (value: string) => void;
     setSurname: (value: string) => void;
     handleTopicChange: (e: SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => void;

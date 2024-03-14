@@ -1,9 +1,11 @@
 import { useImageFinderContext } from "./ImageFinderContext/ImageFinderContext"
 import { Button, Image, Loader, Segment } from "semantic-ui-react";
-
+import { useNavigate } from 'react-router-dom';
 
 export const ImagePresenter = () => {
     const { page, totalPages, image, loading, setPage, errorMsg, setCardOpen } = useImageFinderContext();
+console.log(useImageFinderContext());
+const navigate = useNavigate();
 
     return (
         <Segment size='mini'>
@@ -16,8 +18,8 @@ export const ImagePresenter = () => {
                 centered
             />
             <div className='buttons-container'>
-                <Button color="teal" onClick={() => setCardOpen(true)}>Accept</Button>
-                <Button color="red" disabled={page === totalPages} onClick={() => setPage(page + 1)}>Reject</Button>
+                <Button color="teal" onClick={() => navigate('/card')}>Accept</Button>
+                <Button color="red" disabled={page === totalPages} onClick={() => navigate('/')}>Reject</Button>
             </div>
         </Segment>
     );

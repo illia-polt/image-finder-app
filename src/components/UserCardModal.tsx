@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Image, Modal } from 'semantic-ui-react';
 import { useImageFinderContext } from './ImageFinderContext/ImageFinderContext';
+import { useNavigate } from 'react-router-dom';
 
 const UserCard = () => {
     const {
@@ -12,12 +13,13 @@ const UserCard = () => {
     } = useImageFinderContext();
 
     const closeCard = () => setCardOpen(false);
-
+const navigate = useNavigate();
   return (
-    <Modal
-        open={cardOpen}
-        onClose={closeCard}
-    >
+    // <Modal
+    //     open={cardOpen}
+    //     onClose={closeCard}
+    // >
+    <>
         <Modal.Content className='modal-content' style={{ width: 600, height: 300, display: 'grid', gridTemplateColumns: '3fr 1fr', gap: '14px', margin: '14px', padding: '14px'}}>
             <Image
                 src={image?.urls?.regular || 'https://react.semantic-ui.com/images/wireframe/image.png'}
@@ -31,9 +33,10 @@ const UserCard = () => {
             </section>
         </Modal.Content>
         <Modal.Actions>
-            <Button color="teal" onClick={closeCard}>Close</Button>
+            <Button color="teal" onClick={() => navigate('/picker')}>Close</Button>
         </Modal.Actions>
-    </Modal>
+    </>
+    // </Modal>
   );
 };
 

@@ -6,9 +6,24 @@ type getImagesProps = {
     query: string,
     page: number,
 }
+
+export type Image = {
+    id: string,
+    alt_description: string,
+    urls: {
+        full: string,
+        raw: string,
+        regular: string,
+        small: string,
+    },
+    created_at: string,
+    slug: string,
+}
+
 export type ImageResponse = {
-    results: any[];
+    results: Image[];
     total: number;
+    total_pages: number;
 }
 
 export const getImages = async ({query, page}: getImagesProps) => {

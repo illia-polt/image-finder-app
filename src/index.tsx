@@ -4,16 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css'
-import { ImageFinderProvider } from './components/ImageFinderContext/ImageFinderContext';
+import { AppProvider } from './components/AppContext/AppContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ImageFinderProvider>
+    <AppProvider>
       <App />
-    </ImageFinderProvider>  
+    </AppProvider>  
   </React.StrictMode>
 );
 

@@ -1,14 +1,6 @@
 import { ReactNode, SyntheticEvent } from "react";
 import { DropdownProps } from "semantic-ui-react";
-
-export type Image = {
-    altDescription: string;
-    urls : {
-        full: string;
-        regular: string;
-        small: string;
-    }
-}
+import { type Image } from "../../api/getImages";
 
 export type ContextValue = {
     name: string;
@@ -19,16 +11,15 @@ export type ContextValue = {
     totalPages: number;
     image: Image;
     errorMsg: string;
+    searchTopic: string;
     loading: boolean;
-    cardOpen: boolean;
+    resetSearch: () => void;
     setName: (value: string) => void;
     setSurname: (value: string) => void;
     handleTopicChange: (e: SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => void;
-    handleSearch: (e: SyntheticEvent<HTMLElement, Event>) => void;
     setOtherTopic: (value: string) => void;
     setPage: (value: number) => void;
     setTotalPages: (value: number) => void;
-    setCardOpen: (value: boolean) => void;
 };
 
 export type ProviderProps = {

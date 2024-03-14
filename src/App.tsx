@@ -1,16 +1,19 @@
 import React from 'react';
 import './App.css';
-import UserForm from './components/UserForm';
-import { ImagePresenter } from './components/ImagePresenter';
-import UserCardModal from './components/UserCardModal';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import UserForm from './pages/UserForm/UserForm';
+import ImagePresenter from './pages/ImagePresenter/ImagePresenter';
+import UserCard from './pages/UserCard/UserCard';
 
 function App() {
   return (
-    <div className="App">
-      <UserForm/>
-      <ImagePresenter />
-      <UserCardModal/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<UserForm />} />
+        <Route path='/picker' element={<ImagePresenter />} />
+        <Route path='/card' element={<UserCard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

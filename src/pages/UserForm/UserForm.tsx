@@ -33,15 +33,16 @@ const UserForm = () => {
     navigate('/picker');
   }
 
-  const disableButton =  name.length < 3 || surname.length < 3 || !searchTopic;
+  const disableButton = name.length < 3 || surname.length < 3 || !searchTopic;
 
   return (
-    <Segment raised size='huge' >
-      <h1>Image Finder</h1>
+    <Segment raised size="huge" className="user-form" >
+      <h1 aria-live="polite">Image Finder</h1>
       <Form>
         <Form.Field required>
-          <label>Name</label>
+          <label htmlFor="name">Name</label>
           <Input
+            id="name"
             name="name"
             placeholder="Enter your name"
             value={name}
@@ -50,8 +51,9 @@ const UserForm = () => {
           />
         </Form.Field>
         <Form.Field required>
-          <label>Surname</label>
+          <label htmlFor="surname">Surname</label>
           <Input
+            id="surname"
             name="surname"
             placeholder="Enter your surname"
             value={surname}
@@ -59,10 +61,14 @@ const UserForm = () => {
           />
         </Form.Field>
         <Form.Field required>
-          <label>Preferred Topic</label>
+          <label htmlFor="topic">Preferred Topic</label>
           <Dropdown
+            id="topic"
+            aria-label="Preferred Topic"
+            aria-labelledby="topic"
             placeholder="Select Topic"
-            fluid
+            aria-busy="true"
+            option-role="listItem"
             selection
             options={topics}
             value={topic}
@@ -70,10 +76,11 @@ const UserForm = () => {
           />
         </Form.Field>
         {topic === 'Other' && (
-          <Form.Field >
-            <label>Other Topic</label>
+          <Form.Field>
+            <label htmlFor="otherTopic">Other Topic</label>
             <Input
-              type='search'
+              id="otherTopic"
+              type="search"
               name="otherTopic"
               placeholder="Enter other topic"
               value={otherTopic}
@@ -81,8 +88,15 @@ const UserForm = () => {
           />
           </Form.Field>
         )}
-        <div className='buttons-container'>
-          <Button color='teal' onClick={onSearch} disabled={disableButton}>Search</Button>
+        <div className="buttons-container">
+          <Button
+            color="violet"
+            onClick={onSearch}
+            disabled={disableButton}
+            aria-disabled={disableButton}
+          >
+            Search
+          </Button>
         </div>
       </Form>
     </Segment>

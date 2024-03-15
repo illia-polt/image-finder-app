@@ -13,22 +13,34 @@ const ImagePresenter = () => {
         loading
     } = useAppContext();
     const navigate = useNavigate();
-    console.log({loading});
 
     return (
-        <Segment size='mini'>
-            {errorMsg && <p className="error-message">{errorMsg}</p>}
-            <Loader active={loading}>Loading</Loader>
+        <Segment size='mini' aria-live="polite">
+            {errorMsg && <p className="error-message" aria-live="assertive">{errorMsg}</p>}
+            <Loader active={loading} aria-label="Image loading">Loading</Loader>
             <Image
                 src={image?.urls?.full}
-                alt={image?.alt_description}
+                alt={image?.alt_description || "Presented Image"}
                 className="placeholder"
                 size="huge"
                 centered
             />
             <div className='buttons-container'>
-                <Button color="teal" onClick={() => navigate('/card')}>Accept</Button>
-                <Button color="red" disabled={page === totalPages} onClick={() => navigate('/')}>Reject</Button>
+                <Button
+                    color="violet"
+                    aria-label="Accept image"
+                    onClick={() => navigate('/card')}
+                >
+                    Accept
+                </Button>
+                <Button
+                    color="red"
+                    aria-label="Reject image"
+                    disabled={page === totalPages}
+                    onClick={() => navigate('/')}
+                >
+                    Reject
+                </Button>
             </div>
         </Segment>
     );
